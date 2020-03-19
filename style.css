@@ -14,3 +14,16 @@
 .weatherBoarder {
   border: 2px solid rgb(223, 223, 223);
 }
+
+.forecast {
+  background-color: rgb(0, 123, 255);
+  border: 1px solid blue;
+  border-radius: 5px;
+  color: white;
+  padding: 3px 20px 5px 8px;
+  width: 150px;
+}
+
+.forecastRow {
+  height: 100px;
+}
