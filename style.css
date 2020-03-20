@@ -27,3 +27,11 @@
 .forecastRow {
   height: 100px;
 }
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
