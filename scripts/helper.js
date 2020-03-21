@@ -37,4 +37,20 @@ helper.checkIfValueIsPresent = function(variable) {
   return true;
 };
 
+helper.tempratureToCelsius = function(temp, unitOfInputTemp) {
+  if (unitOfInputTemp.toLowerCase() === 'kelvin') {
+    return tempInKelvin - 273.15;
+  } else if (unitOfInputTemp.toLowerCase() === 'fahrenheit') {
+    return (5 / 9) * (temp - 32);
+  }
+};
+
+helper.tempratureToFarenheit = function(temp, unitOfInputTemp) {
+  if (unitOfInputTemp.toLowerCase() === 'kelvin') {
+    this.tempratureToCelsius(temp, 'kelvin') * (9 / 5) + 32;
+  } else if (unitOfInputTemp.toLowerCase() === 'celsius') {
+    return temp * (9 / 5) + 32;
+  }
+};
+
 // export default helper;
