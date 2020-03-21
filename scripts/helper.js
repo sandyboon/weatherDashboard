@@ -1,4 +1,4 @@
-'use strict';
+('use strict');
 
 //initialize helper namespace
 //need to revisit this. Could helper object have already been created elsewhere ??
@@ -39,7 +39,7 @@ helper.checkIfValueIsPresent = function(variable) {
 
 helper.tempratureToCelsius = function(temp, unitOfInputTemp) {
   if (unitOfInputTemp.toLowerCase() === 'kelvin') {
-    return tempInKelvin - 273.15;
+    return temp - 273.15;
   } else if (unitOfInputTemp.toLowerCase() === 'fahrenheit') {
     return (5 / 9) * (temp - 32);
   }
@@ -47,7 +47,7 @@ helper.tempratureToCelsius = function(temp, unitOfInputTemp) {
 
 helper.tempratureToFarenheit = function(temp, unitOfInputTemp) {
   if (unitOfInputTemp.toLowerCase() === 'kelvin') {
-    this.tempratureToCelsius(temp, 'kelvin') * (9 / 5) + 32;
+    helper.tempratureToCelsius(temp, 'kelvin') * (9 / 5) + 32;
   } else if (unitOfInputTemp.toLowerCase() === 'celsius') {
     return temp * (9 / 5) + 32;
   }

@@ -11,7 +11,7 @@ function searchCity() {
   //what if invalid city? Show Error
   //Else add the City to fav. and show the current weather and then trigger the call to fetch and show the 5 days forecast
 
-  openWeatherApi.getCurrentWeather(cityName, showCurrentWeather);
+  openWeatherApi.getCurrentWeather(cityName, showCurrentWeather, showUVIndex);
 }
 
 //function to display currentWeather from the api object
@@ -43,9 +43,12 @@ function showCurrentWeather(currentWeather) {
     $('#currentWind').text(
       'Wind Speed: ' + 2.37 * currentWeather.wind['speed']
     );
-    //set the UV Index
-    $('#currentUV').text(currentWeather.main[humidity]);
   }
+}
+
+function showUVIndex(uvIndexObj) {
+  //set the UV Index
+  $('#currentUV').text(uvIndexObj.value);
 }
 
 $(document).ready(function() {
