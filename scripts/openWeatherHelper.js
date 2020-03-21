@@ -3,7 +3,7 @@
 const api_Ampersand = '&appid=';
 const openWeatherApi = {
   apiKey: '9bed288a78e9fda72e94c9fd3a1abd87',
-  rootUrl: 'http://api.openweathermap.org/data/2.5/weather',
+  rootUrl: 'https://api.openweathermap.org/data/2.5/weather',
   rootUVIndexUrl: 'https://samples.openweathermap.org/data/2.5/uvi?', //http://api.openweathermap.org/data/2.5/uvi
   currentWeatherForCityUrl: function(cityName) {
     let url = this.rootUrl + '?q=' + cityName + api_Ampersand + this.apiKey;
@@ -11,7 +11,7 @@ const openWeatherApi = {
     return url;
   },
   currentUVIndexUrl: function(lat, lon) {
-    let url = `http://api.openweathermap.org/data/2.5/uvi?appid=9bed288a78e9fda72e94c9fd3a1abd87&lat=${lat}&lon=${lon}`;
+    let url = `https://api.openweathermap.org/data/2.5/uvi?appid=9bed288a78e9fda72e94c9fd3a1abd87&lat=${lat}&lon=${lon}`;
     console.log('url is : ' + url);
     return url;
   }
@@ -20,7 +20,8 @@ const openWeatherApi = {
 openWeatherApi.getCurrentWeather = function(
   cityName,
   showCurrentWeather,
-  displayUVIndexFunction
+  displayUVIndexFunction,
+  erroHandler
 ) {
   fetch(this.currentWeatherForCityUrl(cityName))
     .then(function(response) {
@@ -44,11 +45,8 @@ openWeatherApi.getCurrentWeather = function(
       return showCurrentWeather(data);
     })
     .catch(error => {
-      console.error(
-        'There has been a problem with the fetch operation:',
-        error
-      );
-      return showCurrentWeather(error);
+      console.error('There was a problem with the fetch operation:', error);
+      return erroHandler(error);
     });
 };
 
