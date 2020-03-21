@@ -27,11 +27,12 @@ function showCurrentWeather(currentWeather) {
   //set the name of the city
   $('#cityWeatherToday').text(currentWeather.name);
   //set the temprature
-  $('#currentTemp').text(
+  $('#currentTemp').html(
     'Temprature: ' +
       helper
         .tempratureToFarenheit(currentWeather.main['temp'], 'kelvin')
-        .toFixed(1)
+        .toFixed(1) +
+      ' &#x2109;'
   ); //Temprature: 90F
   //set the humidity
   $('#currentHumid').text('Humidity: ' + currentWeather.main['humidity']);
@@ -67,6 +68,15 @@ function handleError(error) {
 function removeErrorsIfAny() {
   $('#errorMessage').text(''); //empty the error message
   $('#cityName').removeClass('inputError');
+  //enable the button
+  let searchedCityName = $('#cityName')
+    .val()
+    .trim();
+  if (searchedCityName.length > 1) {
+    $('#searchBtn').removeAttr('disabled');
+  } else {
+    $('#searchBtn').attr('disabled', true);
+  }
 }
 
 $(document).ready(function() {

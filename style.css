@@ -43,3 +43,7 @@
 .errorMessage {
   color: red;
 }
+
+.textCursor {
+  cursor: text;
+}
