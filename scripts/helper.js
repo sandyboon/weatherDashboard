@@ -47,7 +47,7 @@ helper.tempratureToCelsius = function(temp, unitOfInputTemp) {
 
 helper.tempratureToFarenheit = function(temp, unitOfInputTemp) {
   if (unitOfInputTemp.toLowerCase() === 'kelvin') {
-    helper.tempratureToCelsius(temp, 'kelvin') * (9 / 5) + 32;
+    return helper.tempratureToCelsius(temp, 'kelvin') * (9 / 5) + 32;
   } else if (unitOfInputTemp.toLowerCase() === 'celsius') {
     return temp * (9 / 5) + 32;
   }
