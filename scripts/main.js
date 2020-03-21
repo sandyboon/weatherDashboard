@@ -17,10 +17,11 @@ function searchCity() {
 //function to display currentWeather from the api object
 function showCurrentWeather(currentWeather) {
   if (
-    currentWeather.cod === 404 &&
-    currentWeather.message === 'city not found'
+    currentWeather.hasOwnProperty('message') &&
+    currentWeather.message.includes('Error Code : 404')
   ) {
-    //Error handling
+    //Error handling. Show a proper message
+    $('#cityName').addClass('inputError');
   } else if (
     currentWeather.hasOwnProperty('message') &&
     currentWeather.message.includes('Network response was not ok')
@@ -35,13 +36,15 @@ function showCurrentWeather(currentWeather) {
     //set the temprature
     $('#currentTemp').text(
       'Temprature: ' +
-        helper.tempratureToFarenheit(currentWeather.main['temp'], 'kelvin')
+        helper
+          .tempratureToFarenheit(currentWeather.main['temp'], 'kelvin')
+          .toFixed(1)
     ); //Temprature: 90F
     //set the humidity
     $('#currentHumid').text('Humidity: ' + currentWeather.main['humidity']);
     //set the wind speed
     $('#currentWind').text(
-      'Wind Speed: ' + 2.37 * currentWeather.wind['speed']
+      'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1)
     );
   }
 }

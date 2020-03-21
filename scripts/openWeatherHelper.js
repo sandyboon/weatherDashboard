@@ -19,13 +19,18 @@ const openWeatherApi = {
 
 openWeatherApi.getCurrentWeather = function(
   cityName,
-  displayCurrWeatherFunction,
+  showCurrentWeather,
   displayUVIndexFunction
 ) {
   fetch(this.currentWeatherForCityUrl(cityName))
     .then(function(response) {
       if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
+        throw new Error(
+          'Error Code : ' +
+            response.status +
+            'Error Message: ' +
+            response.statusText
+        );
       }
       return response.json();
     })
@@ -36,16 +41,15 @@ openWeatherApi.getCurrentWeather = function(
         data.coord['lon'],
         displayUVIndexFunction
       );
-      return displayCurrWeatherFunction(data);
+      return showCurrentWeather(data);
+    })
+    .catch(error => {
+      console.error(
+        'There has been a problem with the fetch operation:',
+        error
+      );
+      return showCurrentWeather(error);
     });
-
-  // .catch(error => {
-  //   console.error(
-  //     'There has been a problem with the fetch operation:',
-  //     error
-  //   );
-  //   return { message: 'Error : ' + error };
-  // });
 };
 
 openWeatherApi.getCurrentUVIndex = function(lat, lon, displayUVIndexFunction) {

@@ -35,3 +35,7 @@
 .show {
   visibility: visible;
 }
+
+.inputError {
+  border: 2px solid red;
+}
