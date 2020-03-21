@@ -3,15 +3,15 @@
 const api_Ampersand = '&appid=';
 const openWeatherApi = {
   apiKey: '9bed288a78e9fda72e94c9fd3a1abd87',
-  rootUrl: 'https://api.openweathermap.org/data/2.5/weather',
-  rootUVIndexUrl: 'https://samples.openweathermap.org/data/2.5/uvi?',
+  rootUrl: 'http://api.openweathermap.org/data/2.5/weather',
+  rootUVIndexUrl: 'https://samples.openweathermap.org/data/2.5/uvi?', //http://api.openweathermap.org/data/2.5/uvi
   currentWeatherForCityUrl: function(cityName) {
     let url = this.rootUrl + '?q=' + cityName + api_Ampersand + this.apiKey;
     console.log('url is : ' + url);
     return url;
   },
   currentUVIndexUrl: function(lat, lon) {
-    let url = `${this.rootUVIndexUrl}lat=${lat}&lon=${lon}${api_Ampersand}${this.apiKey}`;
+    let url = `http://api.openweathermap.org/data/2.5/uvi?appid=9bed288a78e9fda72e94c9fd3a1abd87&lat=${lat}&lon=${lon}`;
     console.log('url is : ' + url);
     return url;
   }
