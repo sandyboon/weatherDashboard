@@ -39,11 +39,19 @@ function showCurrentWeather(currentWeather) {
       ' &#x2109;'
   ); //Temprature: 90F
   //set the humidity
-  $('#currentHumid').text('Humidity: ' + currentWeather.main['humidity']);
+  $('#currentHumid').text(
+    'Humidity: ' + currentWeather.main['humidity'] + ' %'
+  );
   //set the wind speed
   $('#currentWind').text(
-    'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1)
+    'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1) + ' MPH'
   );
+  //Now add the searched city to recently searched city side-bar
+}
+
+function addCityToSideBar(cityName) {
+  let recentlySearchedCities = $('#recentlySearchedCities');
+  // let
 }
 
 function getCurrentImageUrl(currentWeather) {
