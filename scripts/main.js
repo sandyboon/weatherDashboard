@@ -238,7 +238,10 @@ $(document).ready(function() {
   //If there are none to be found then
   let citiesInStorage = localStorage.getItem(localStorageKey);
   if (citiesInStorage !== null) {
-    let lastSearchedCity = citiesInStorage.split(',').pop();
+    let allTheCitiesSearched = citiesInStorage.split(',');
+    allTheCitiesSearched.forEach(city => addCityToSideBar(city));
+    let lastSearchedCity = allTheCitiesSearched.pop();
+
     console.log('last seacrhed city: ' + lastSearchedCity);
     fetchCurrentWeather(lastSearchedCity);
   }
