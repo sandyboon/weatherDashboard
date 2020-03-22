@@ -59,6 +59,7 @@ function addCityToSideBar(cityName) {
   let recentlySearchedCitiesDiv = $('#recentlySearchedCities');
   //see if the city is alread in the recently searched city side-bar
   if (recentlySearchedCitiesDiv.find('#' + cityName + 'row').length >= 1) {
+    animateSidebarColumn($('#' + cityName));
     return;
   }
   let newCityRow = bootStrapHelper.getBootStrapGridRow(
@@ -136,7 +137,22 @@ function getTimeStamp(currentWeather) {
 
 function showUVIndex(uvIndexObj) {
   //set the UV Index
-  $('#currentUV').text(uvIndexObj.value);
+  let uvIndex = uvIndexObj.value;
+  $('#currentUV').text(uvIndex);
+  $('#currentUV').removeClass();
+  let uvIndexLevelClass = '';
+  if (uvIndex <= 2) {
+    uvIndexLevelClass = 'badge lowUVIndex';
+  } else if (uvIndex > 2 && uvIndex <= 5) {
+    uvIndexLevelClass = 'badge moderateUVIndex';
+  } else if (uvIndex > 5 && uvIndex <= 7) {
+    uvIndexLevelClass = 'badge highUVIndex';
+  } else if (uvIndex > 7 && uvIndex <= 10) {
+    uvIndexLevelClass = 'badge veryHighUVIndex';
+  } else if (uvIndex > 11) {
+    uvIndexLevelClass = 'badge extremeUVIndex';
+  }
+  $('#currentUV').addClass(uvIndexLevelClass);
 }
 
 function handleError(error) {

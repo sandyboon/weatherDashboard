@@ -60,3 +60,28 @@
 .highlightBorder {
   border: 2px solid #0e7796;
 }
+
+.lowUVIndex {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.moderateUVIndex {
+  color: #212529;
+  background-color: yellowgreen;
+}
+
+.highUVIndex {
+  color: #212529;
+  background-color: #ffc107;
+}
+
+.veryHighUVIndex {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.extremeUVIndex {
+  color: #fff;
+  background-color: purple;
+}
