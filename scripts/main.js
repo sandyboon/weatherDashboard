@@ -28,6 +28,8 @@ function showCurrentWeather(currentWeather) {
   $('#cityWeatherToday').text(
     currentWeather.name + ' (' + getTimeStamp(currentWeather) + ')'
   );
+  //set the weathe image
+  $('#currentWImage').attr('src', getCurrentImageUrl(currentWeather));
   //set the temprature
   $('#currentTemp').html(
     'Temprature: ' +
@@ -42,6 +44,11 @@ function showCurrentWeather(currentWeather) {
   $('#currentWind').text(
     'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1)
   );
+}
+
+function getCurrentImageUrl(currentWeather) {
+  let rootImageUrl = 'https://openweathermap.org/img/wn/';
+  return rootImageUrl + currentWeather.weather[0].icon + '.png';
 }
 
 function getTimeStamp(currentWeather) {
