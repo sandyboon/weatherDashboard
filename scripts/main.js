@@ -1,6 +1,7 @@
 ('use strict');
 
 /* Main Javascript file to contain the search and display functionality */
+const localStorageKey = 'citiesSearched';
 
 //define click behaviour for the search button
 function searchCity() {
@@ -47,11 +48,54 @@ function showCurrentWeather(currentWeather) {
     'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1) + ' MPH'
   );
   //Now add the searched city to recently searched city side-bar
+  addCityToSideBar(currentWeather.name);
 }
 
 function addCityToSideBar(cityName) {
-  let recentlySearchedCities = $('#recentlySearchedCities');
-  // let
+  let recentlySearchedCitiesDiv = $('#recentlySearchedCities');
+  //see if the city is alread in the recently searched city side-bar
+  if (recentlySearchedCitiesDiv.find('#' + cityName + 'row').length >= 1) {
+    return;
+  }
+  let newCityRow = bootStrapHelper.getBootStrapGridRow(
+    cityName + 'row',
+    '<div>'
+  );
+  let newCityCol = bootStrapHelper.getootStrapGridColumn(
+    cityName,
+    '<div>',
+    'col-8 weatherBoarder'
+  );
+  let citNameParagraph = bootStrapHelper.createJqueryDomElement(
+    cityName + '-p',
+    '<p>'
+  );
+  citNameParagraph.text(cityName);
+  newCityCol.append(citNameParagraph);
+  newCityRow.append(newCityCol);
+  recentlySearchedCitiesDiv.append(newCityRow);
+  //store the cityname
+  storeCityNameInStorage(cityName);
+  //animate//
+  newCityCol.animate({ 'margin-left': '+=20px' }, 'fast');
+  newCityCol.animate({ 'border-color': '#0e7796' }, 'fast');
+  newCityCol.animate({ 'margin-left': '-=20px' }, 'fast');
+  newCityCol.animate({ 'border-color': '#dfdfdf' }, 'slow');
+}
+
+function storeCityNameInStorage(cityName) {
+  //try and retrieve what's stored in storage
+  let citiesInStorage = localStorage.getItem(localStorageKey);
+  if (citiesInStorage === null) {
+    //first insertion
+    localStorage.setItem(localStorageKey, cityName);
+  } else {
+    //retrieve whats in there
+    let currentlyStored = localStorage.getItem(localStorageKey);
+    currentlyStored = currentlyStored.concat(',').concat(cityName);
+    //push it back in
+    localStorage.setItem(localStorageKey, currentlyStored);
+  }
 }
 
 function getCurrentImageUrl(currentWeather) {
