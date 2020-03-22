@@ -24,8 +24,10 @@ function showCurrentWeather(currentWeather) {
   //success!
   //make sure the panel is not hidden
   $('#currentWeatherDiv').removeClass('hide');
-  //set the name of the city
-  $('#cityWeatherToday').text(currentWeather.name);
+  //set the name of the city and the time stamp.
+  $('#cityWeatherToday').text(
+    currentWeather.name + ' (' + getTimeStamp(currentWeather) + ')'
+  );
   //set the temprature
   $('#currentTemp').html(
     'Temprature: ' +
@@ -40,6 +42,11 @@ function showCurrentWeather(currentWeather) {
   $('#currentWind').text(
     'Wind Speed: ' + (2.37 * currentWeather.wind['speed']).toFixed(1)
   );
+}
+
+function getTimeStamp(currentWeather) {
+  let unixTimeInSeconds = currentWeather.dt;
+  return moment.unix(unixTimeInSeconds).format('YYYY/MM/DD');
 }
 
 function showUVIndex(uvIndexObj) {
