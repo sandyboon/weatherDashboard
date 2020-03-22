@@ -10,12 +10,23 @@ function searchCity() {
     .val()
     .trim();
   //hide all the currently displayed forecast data
+  hideCurrentWeatherData();
+  fetchCurrentWeather(cityName);
+}
+
+function hideCurrentWeatherData() {
   $('.forecast').each(function(i, forecastDiv) {
     if (!$(forecastDiv).hasClass('hide')) {
       $(forecastDiv).addClass('hide');
     }
   });
-  fetchCurrentWeather(cityName);
+  //hide the current weather displayed for previously searched city
+  if (!$('#currentWeatherDiv').hasClass('hide')) {
+    $('#currentWeatherDiv').addClass('hide');
+  }
+  if (!$('#forecastHeading').hasClass('hide')) {
+    $('#forecastHeading').addClass('hide');
+  }
 }
 
 function fetchCurrentWeather(cityName) {
@@ -65,11 +76,11 @@ function showForeCast(forecastData) {
   $('#forecastHeading').removeClass('hide');
   console.log(forecastData);
   //extract 5 data points and display one by one
-  addForeCastToDiv(forecastData.list[2], 1);
-  addForeCastToDiv(forecastData.list[10], 2);
-  addForeCastToDiv(forecastData.list[18], 3);
-  addForeCastToDiv(forecastData.list[26], 4);
-  addForeCastToDiv(forecastData.list[34], 5);
+  addForeCastToDiv(forecastData.list[3], 1);
+  addForeCastToDiv(forecastData.list[11], 2);
+  addForeCastToDiv(forecastData.list[19], 3);
+  addForeCastToDiv(forecastData.list[27], 4);
+  addForeCastToDiv(forecastData.list[35], 5);
 }
 
 function addForeCastToDiv(data, dayNumber) {
