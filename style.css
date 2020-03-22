@@ -85,3 +85,8 @@
   color: #fff;
   background-color: purple;
 }
+
+.forecastInfo {
+  font-weight: 300;
+  font-size: 0.8rem;
+}

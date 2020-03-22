@@ -9,9 +9,12 @@ function searchCity() {
   let cityName = $('#cityName')
     .val()
     .trim();
-  //what if invalid city? Show Error
-  //Else add the City to fav. and show the current weather and then trigger the call to fetch and show the 5 days forecast
-
+  //hide all the currently displayed forecast data
+  $('.forecast').each(function(i, forecastDiv) {
+    if (!$(forecastDiv).hasClass('hide')) {
+      $(forecastDiv).addClass('hide');
+    }
+  });
   fetchCurrentWeather(cityName);
 }
 
@@ -26,6 +29,8 @@ function fetchCurrentWeather(cityName) {
 
 //function to display currentWeather from the api object
 function showCurrentWeather(currentWeather) {
+  //Fire off a call to get forecast
+  openWeatherApi.getForecast(currentWeather.name, showForeCast, handleError);
   //success!
   //make sure the panel is not hidden
   $('#currentWeatherDiv').removeClass('hide');
@@ -53,6 +58,37 @@ function showCurrentWeather(currentWeather) {
   );
   //Now add the searched city to recently searched city side-bar
   addCityToSideBar(currentWeather.name);
+}
+
+function showForeCast(forecastData) {
+  //Make sure the heading is visible
+  $('#forecastHeading').removeClass('hide');
+  //extract 5 data points and display one by one
+  addForeCastToDiv(forecastData.list[3], 1);
+  console.log(forecastData);
+}
+
+function addForeCastToDiv(data, dayNumber) {
+  let dayId = '#day-' + dayNumber;
+  let foreCastDiv = $(dayId);
+  //make it visible
+  foreCastDiv.removeClass('hide');
+  //set the date
+  foreCastDiv.find(dayId + '-' + 'date').text(getTimeStamp(data));
+  //set the image icon
+  foreCastDiv.find(dayId + '-' + 'img').attr('src', getCurrentImageUrl(data));
+  //set the temp
+  foreCastDiv
+    .find(dayId + '-' + 'temp')
+    .html(
+      'Temp: ' +
+        helper.tempratureToFarenheit(data.main['temp'], 'kelvin').toFixed(1) +
+        ' &#x2109;'
+    );
+  //set humidity
+  foreCastDiv
+    .find(dayId + '-' + 'humid')
+    .text('Humidity: ' + data.main['humidity'] + ' %');
 }
 
 function addCityToSideBar(cityName) {
@@ -132,7 +168,7 @@ function getCurrentImageUrl(currentWeather) {
 
 function getTimeStamp(currentWeather) {
   let unixTimeInSeconds = currentWeather.dt;
-  return moment.unix(unixTimeInSeconds).format('YYYY/MM/DD');
+  return moment.unix(unixTimeInSeconds).format('MM/DD/YYYY');
 }
 
 function showUVIndex(uvIndexObj) {
