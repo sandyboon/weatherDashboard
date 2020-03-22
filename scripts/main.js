@@ -250,8 +250,8 @@ $(document).ready(function() {
   let citiesInStorage = localStorage.getItem(localStorageKey);
   if (citiesInStorage !== null) {
     let allTheCitiesSearched = citiesInStorage.split(',');
-    allTheCitiesSearched.forEach(city => addCityToSideBar(city));
     let lastSearchedCity = allTheCitiesSearched.pop();
+    allTheCitiesSearched.forEach(city => addCityToSideBar(city));
 
     console.log('last seacrhed city: ' + lastSearchedCity);
     fetchCurrentWeather(lastSearchedCity);
