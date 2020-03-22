@@ -63,9 +63,13 @@ function showCurrentWeather(currentWeather) {
 function showForeCast(forecastData) {
   //Make sure the heading is visible
   $('#forecastHeading').removeClass('hide');
-  //extract 5 data points and display one by one
-  addForeCastToDiv(forecastData.list[3], 1);
   console.log(forecastData);
+  //extract 5 data points and display one by one
+  addForeCastToDiv(forecastData.list[2], 1);
+  addForeCastToDiv(forecastData.list[10], 2);
+  addForeCastToDiv(forecastData.list[18], 3);
+  addForeCastToDiv(forecastData.list[26], 4);
+  addForeCastToDiv(forecastData.list[34], 5);
 }
 
 function addForeCastToDiv(data, dayNumber) {
@@ -155,9 +159,11 @@ function storeCityNameInStorage(cityName) {
   } else {
     //retrieve whats in there
     let currentlyStored = localStorage.getItem(localStorageKey);
-    currentlyStored = currentlyStored.concat(',').concat(cityName);
-    //push it back in
-    localStorage.setItem(localStorageKey, currentlyStored);
+    if (!currentlyStored.includes(cityName)) {
+      currentlyStored = currentlyStored.concat(',').concat(cityName);
+      //push it back in
+      localStorage.setItem(localStorageKey, currentlyStored);
+    }
   }
 }
 
@@ -224,10 +230,16 @@ function removeErrorsIfAny() {
 }
 
 $(document).ready(function() {
-  //When the document load. Check in local storage for all the previously saved cityNames
-  //If there are none to be found then
-
   //define listeners
   $('#searchBtn').on('click', searchCity);
   $('#cityName').keydown(removeErrorsIfAny);
+
+  //When the document load. Check in local storage for all the previously saved cityNames
+  //If there are none to be found then
+  let citiesInStorage = localStorage.getItem(localStorageKey);
+  if (citiesInStorage !== null) {
+    let lastSearchedCity = citiesInStorage.split(',').pop();
+    console.log('last seacrhed city: ' + lastSearchedCity);
+    fetchCurrentWeather(lastSearchedCity);
+  }
 });
