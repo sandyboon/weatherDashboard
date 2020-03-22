@@ -12,6 +12,10 @@ function searchCity() {
   //what if invalid city? Show Error
   //Else add the City to fav. and show the current weather and then trigger the call to fetch and show the 5 days forecast
 
+  fetchCurrentWeather(cityName);
+}
+
+function fetchCurrentWeather(cityName) {
   openWeatherApi.getCurrentWeather(
     cityName,
     showCurrentWeather,
@@ -64,7 +68,7 @@ function addCityToSideBar(cityName) {
   let newCityCol = bootStrapHelper.getootStrapGridColumn(
     cityName,
     '<div>',
-    'col-8 weatherBoarder'
+    'col-8 weatherBoarder btnCursor ml-3'
   );
   let citNameParagraph = bootStrapHelper.createJqueryDomElement(
     cityName + '-p',
@@ -77,10 +81,32 @@ function addCityToSideBar(cityName) {
   //store the cityname
   storeCityNameInStorage(cityName);
   //animate//
-  newCityCol.animate({ 'margin-left': '+=20px' }, 'fast');
+  animateSidebarColumn(newCityCol);
+  //define click behaviour for the newly added column
+  newCityCol.click(function(event) {
+    console.log('event ' + event);
+    console.log('event target ' + event.target);
+    console.log('this ' + this);
+    fetchCurrentWeather(this.innerText);
+  });
+  newCityCol.click(function(event) {
+    animateSidebarColumn($(this));
+  });
+  // //onhover highlight
+  // newCityCol.hover(function(event) {
+  //   $(this).removeClass('weatherBoarder');
+  //   $(this).addClass('highlightBorder');
+  // });
+}
+
+function animateSidebarColumn(newCityCol) {
+  newCityCol.animate({ paddingLeft: '+=20px' }, 'fast');
   newCityCol.animate({ 'border-color': '#0e7796' }, 'fast');
-  newCityCol.animate({ 'margin-left': '-=20px' }, 'fast');
+  newCityCol.animate({ paddingLeft: '-=20px' }, 'fast');
   newCityCol.animate({ 'border-color': '#dfdfdf' }, 'slow');
+  // newCityCol.stop();
+  // newCityCol.addClass('ml-3');
+  // newCityCol.removeAttr('style');
 }
 
 function storeCityNameInStorage(cityName) {
